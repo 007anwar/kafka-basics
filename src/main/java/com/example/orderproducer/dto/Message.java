@@ -1,4 +1,4 @@
-package com.example.orderproducer;
+package com.example.orderproducer.dto;
 
 public class Message {
     public String message;

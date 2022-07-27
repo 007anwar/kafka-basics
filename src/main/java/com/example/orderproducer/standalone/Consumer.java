@@ -1,4 +1,4 @@
-package com.example.orderproducer;
+package com.example.orderproducer.standalone;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

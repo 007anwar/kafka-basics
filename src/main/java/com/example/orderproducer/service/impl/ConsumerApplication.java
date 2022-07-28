@@ -32,15 +32,19 @@ public class ConsumerApplication implements Runnable {
         properties.setProperty("key.deserializer", UserDeSerializer.class.getName());
         properties.setProperty("group.id","OrderGroup");
         KafkaConsumer<Integer, UserDetails> consumer = new KafkaConsumer<>(properties);
-        consumer.subscribe(Collections.singletonList("userdetails"));
+        consumer.subscribe(Collections.singletonList(Constants.PARTITIONED));
         log.info("Starting to poll for new kafka message");
+        try{
         while (true) {
             ConsumerRecords<Integer, UserDetails> poll = consumer.poll(Duration.ZERO);
             for (ConsumerRecord<Integer, UserDetails> record : poll) {
                 log.info("Received Message: " + record.value());
             }
         }
-         //consumer.close();
+    }
+        finally {
+            consumer.close();
+        }
     }
 
     @Override

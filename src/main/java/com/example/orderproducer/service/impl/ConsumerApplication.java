@@ -2,6 +2,7 @@ package com.example.orderproducer.service.impl;
 
 import com.example.orderproducer.customserializer.UserDeSerializer;
 import com.example.orderproducer.dto.UserDetails;
+import com.example.orderproducer.service.Constants;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -39,6 +40,7 @@ public class ConsumerApplication implements Runnable {
             ConsumerRecords<Integer, UserDetails> poll = consumer.poll(Duration.ZERO);
             for (ConsumerRecord<Integer, UserDetails> record : poll) {
                 log.info("Received Message: " + record.value());
+                log.info("Partitioned info: {}",record.partition());
             }
         }
     }

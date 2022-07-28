@@ -1,9 +1,11 @@
 package com.example.orderproducer.service;
 
+import com.example.orderproducer.customserializer.UserDeSerializer;
 import com.example.orderproducer.dto.UserDetails;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -26,11 +28,11 @@ public class ConsumerApplication implements Runnable {
         Logger log = LoggerFactory.getLogger(ConsumerApplication.class);
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers","localhost:9092");
-        properties.setProperty("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
-        properties.setProperty("key.deserializer","org.apache.kafka.common.serialization.IntegerDeserializer");
+        properties.setProperty("value.deserializer", StringDeserializer.class.getName());
+        properties.setProperty("key.deserializer", UserDeSerializer.class.getName());
         properties.setProperty("group.id","OrderGroup");
         KafkaConsumer<Integer, UserDetails> consumer = new KafkaConsumer<>(properties);
-        consumer.subscribe(Collections.singletonList("apimessages"));
+        consumer.subscribe(Collections.singletonList("userdetails"));
         log.info("Starting to poll for new kafka message");
         while (true) {
             ConsumerRecords<Integer, UserDetails> poll = consumer.poll(Duration.ZERO);

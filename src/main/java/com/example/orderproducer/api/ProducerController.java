@@ -25,9 +25,9 @@ public class ProducerController {
         Properties properties = new Properties();
         properties.setProperty("bootstrap.servers","localhost:9092");
         properties.setProperty("key.serializer","org.apache.kafka.common.serialization.StringSerializer");
-        properties.setProperty("value.serializer","org.apache.kafka.common.serialization.StringSerializer");
+        properties.setProperty("value.serializer","com.example.orderproducer.customserializer.UserSerializer");
         KafkaProducer<Integer, UserDetails> producer = new KafkaProducer<>(properties);
-        ProducerRecord<Integer, UserDetails> apimessages = new ProducerRecord<>("apimessages", userDetails);
+        ProducerRecord<Integer, UserDetails> apimessages = new ProducerRecord<>("userdetails", userDetails);
         log.info("Sending userDetails to kafka");
         Future<RecordMetadata> send = producer.send(apimessages);
         log.info("Message send to kafka topic: {}",send.get().topic());

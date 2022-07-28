@@ -1,6 +1,6 @@
 package com.example.orderproducer.standalone;
 
-import com.example.orderproducer.service.OrderCallback;
+import com.example.orderproducer.service.impl.OrderCallback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 

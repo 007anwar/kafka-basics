@@ -1,4 +1,4 @@
-package com.example.orderproducer.service;
+package com.example.orderproducer.service.impl;
 
 import org.apache.kafka.clients.producer.RecordMetadata;
 
